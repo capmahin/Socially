@@ -92,5 +92,12 @@ model Like {
 
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  @@index([userId,postId])
+  @@index([userId,postId]) //composite index for faster queries
+  @@unique([userId,postId])  //this prevents same user liking post twice
+}
+
+model Follows{
+  followerId String
+  followingId String
+  createdAt DateTime @default(now())
 }
